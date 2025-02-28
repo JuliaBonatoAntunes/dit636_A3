@@ -477,7 +477,7 @@ public class InventoryTest {
 
     /**************************************************************************************/
 
-    /********************************* GENERAL FUNCTIONS **********************************/
+    /********************************* INGREDIENT METHODS *********************************/
 
     @Test   // Tests the enough ingredients method with sufficient ingredients
     public void testHasEnoughIngredientsRecipeValid() throws RecipeException {
@@ -565,6 +565,11 @@ public class InventoryTest {
         assertEquals(expectedSugarAmount, actualSugarAmount);
         assertEquals(expectedChocolateAmount, actualChocolateAmount);
     }
+
+
+    /**************************************************************************************/
+
+    /************************************** toString **************************************/
 
 
     @Test   // Tests the toString method
