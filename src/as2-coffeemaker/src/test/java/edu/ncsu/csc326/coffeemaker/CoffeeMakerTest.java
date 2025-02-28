@@ -315,10 +315,10 @@ public class CoffeeMakerTest {
         try{
 
             //Adding one recipe to test
-            cm.addRecipe(r3);
+            cm.addRecipe(r4);
 
             //Make multiple coffees until items run out
-            for(int i = 0; i < 4; i++){
+            for(int i = 0; i < 6; i++){
                 cm.makeCoffee(0, 25);
             }
 
