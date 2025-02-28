@@ -246,8 +246,6 @@ public class CoffeeMakerTest {
         assertEquals(expected,result);
     }
 
-
-    //Why does this one throws an error?
     @Test
     public void testAddInventory_Many(){
         try {
