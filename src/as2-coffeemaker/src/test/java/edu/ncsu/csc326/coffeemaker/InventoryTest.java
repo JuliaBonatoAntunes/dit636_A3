@@ -13,7 +13,7 @@ import edu.ncsu.csc326.coffeemaker.exceptions.RecipeException;
 public class InventoryTest {
     
     private Inventory inv;
-    private Recipe recipee;
+    private Recipe recipe;
 
     
     @BeforeEach
@@ -23,7 +23,7 @@ public class InventoryTest {
         this.inv = new Inventory();
 
         // Instantiate new recipe object
-        this.recipee = new Recipe();
+        this.recipe = new Recipe();
     }
 
 
@@ -483,12 +483,12 @@ public class InventoryTest {
     public void testHasEnoughIngredientsRecipeValid() throws RecipeException {
 
         // Set all ingredients to 5
-        this.recipee.setAmtChocolate("5");
-        this.recipee.setAmtCoffee("5");
-        this.recipee.setAmtMilk("5");
-        this.recipee.setAmtSugar("5");
+        this.recipe.setAmtChocolate("5");
+        this.recipe.setAmtCoffee("5");
+        this.recipe.setAmtMilk("5");
+        this.recipe.setAmtSugar("5");
 
-        boolean actual = this.inv.enoughIngredients(this.recipee);
+        boolean actual = this.inv.enoughIngredients(this.recipe);
 
         assertTrue(actual);
     }
@@ -498,12 +498,12 @@ public class InventoryTest {
     public void testHasEnoughIngredientsRecipeInvalid() throws RecipeException {
 
         // Set all ingredients to 25
-        this.recipee.setAmtChocolate("25");
-        this.recipee.setAmtCoffee("25");
-        this.recipee.setAmtMilk("25");
-        this.recipee.setAmtSugar("25");
+        this.recipe.setAmtChocolate("25");
+        this.recipe.setAmtCoffee("25");
+        this.recipe.setAmtMilk("25");
+        this.recipe.setAmtSugar("25");
 
-        boolean actual = this.inv.enoughIngredients(this.recipee);
+        boolean actual = this.inv.enoughIngredients(this.recipe);
 
         assertFalse(actual);
     }
@@ -513,12 +513,12 @@ public class InventoryTest {
     public void testUseIngredientsRecipeValid() throws RecipeException {
 
         // Set all ingredients to 5
-        this.recipee.setAmtChocolate("5");
-        this.recipee.setAmtCoffee("5");
-        this.recipee.setAmtMilk("5");
-        this.recipee.setAmtSugar("5");
+        this.recipe.setAmtChocolate("5");
+        this.recipe.setAmtCoffee("5");
+        this.recipe.setAmtMilk("5");
+        this.recipe.setAmtSugar("5");
 
-        boolean actual = this.inv.useIngredients(this.recipee);
+        boolean actual = this.inv.useIngredients(this.recipe);
 
         assertTrue(actual);
     }
@@ -528,12 +528,12 @@ public class InventoryTest {
     public void testUseIngredientsRecipeInvalid() throws RecipeException {
 
         // Set all ingredients to 25
-        this.recipee.setAmtChocolate("25");
-        this.recipee.setAmtCoffee("25");
-        this.recipee.setAmtMilk("25");
-        this.recipee.setAmtSugar("25");
+        this.recipe.setAmtChocolate("25");
+        this.recipe.setAmtCoffee("25");
+        this.recipe.setAmtMilk("25");
+        this.recipe.setAmtSugar("25");
 
-        boolean actual = this.inv.useIngredients(this.recipee);
+        boolean actual = this.inv.useIngredients(this.recipe);
 
         assertFalse(actual);
     }
@@ -543,12 +543,12 @@ public class InventoryTest {
     public void testCheckInventoryAfterUseIngredients() throws RecipeException {
 
         // Set all ingredients to 5
-        this.recipee.setAmtChocolate("5");
-        this.recipee.setAmtCoffee("5");
-        this.recipee.setAmtMilk("5");
-        this.recipee.setAmtSugar("5");
+        this.recipe.setAmtChocolate("5");
+        this.recipe.setAmtCoffee("5");
+        this.recipe.setAmtMilk("5");
+        this.recipe.setAmtSugar("5");
 
-        this.inv.useIngredients(this.recipee);
+        this.inv.useIngredients(this.recipe);
 
         int expectedCoffeeAmount = 10;
         int expectedMilkAmount = 10;
