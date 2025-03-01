@@ -18,6 +18,7 @@ public class CoffeeMakerTest {
 
     @BeforeEach
     public void setUp() throws Exception{
+        //Instantiate new coffee maker object
         cm = new CoffeeMaker();
 
         //Set up for r1
@@ -118,6 +119,7 @@ public class CoffeeMakerTest {
     @Test
     public void testAddRecipe_NonInstantiated(){
         Throwable exception = assertThrows(
+                //Test if adding a non instantiated recipe throws an exception
                 Exception.class, () -> cm.addRecipe(r6)
         );
     }
@@ -137,7 +139,7 @@ public class CoffeeMakerTest {
         }
 
         String expected = "Black Coffee";
-        //Check if returns the correct name
+        //Check if returns the correct recipe name
         assertEquals(expected,result);
     }
 
@@ -145,7 +147,7 @@ public class CoffeeMakerTest {
     public void testDeleteRecipe_NonExistent(){
         String result = "";
         try {
-            //Delete recipe without adding anything
+            //Delete recipe without previously adding it
             result = cm.deleteRecipe(0);
 
         } catch (Exception e) {
@@ -171,7 +173,7 @@ public class CoffeeMakerTest {
     public void testEditRecipe_Normal(){
         String result = "";
         try {
-            //Add and edit recipe
+            //Add and edit one recipe
             cm.addRecipe(r3);
             result = cm.editRecipe(0, r3);
 
@@ -208,8 +210,6 @@ public class CoffeeMakerTest {
 
     //Tests for Add Inventory Function ---------------------------------------------------------------------------------
 
-    //Why does this one throws an error?
-    //Sugar has the wrong operator
     @Test
     public void testAddInventory_Normal(){
         try {
@@ -276,9 +276,11 @@ public class CoffeeMakerTest {
     public void testMakeCoffee_Normal(){
         int change = 0;
         try{
+            //Adding some recipes for the test
             cm.addRecipe(r3);
             cm.addRecipe(r4);
             cm.addRecipe(r5);
+            //Making one coffee
             change = cm.makeCoffee(2, 30);
 
         }catch (Exception e){
@@ -338,14 +340,17 @@ public class CoffeeMakerTest {
     public void testMakeCoffee_InsufficientPayment(){
         int change = 0;
         try{
+            //Adding some recipes for the test
             cm.addRecipe(r3);
             cm.addRecipe(r4);
             cm.addRecipe(r5);
+            //Try to make coffee but provide insufficient payment
             change = cm.makeCoffee(1, 20);
 
         }catch (Exception e){
             fail("Exception should not be thrown");
         }
+        //Expect full refund
         int expected = 20;
         assertEquals(expected, change);
     }
@@ -368,6 +373,8 @@ public class CoffeeMakerTest {
 
         Recipe [] expected = {r2, r3, r4, r5};
 
+        //Iterate throw arrays and check if the result
+        //has the same recipe names as the expected ones
         for(int i = 0; i < result.length; i++){
             assertEquals(expected[i], result[i]);
         }
