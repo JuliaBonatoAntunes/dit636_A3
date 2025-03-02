@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
+    Problems:
     * deleteRecipe never allows for new one to be added
     * editRecipe deletes mew recipe's name
     * In Recipe, same exception message for negative integer or invalid string passed which is not helpful
@@ -26,6 +27,7 @@ class RecipeBookTest {
 
     @BeforeEach
     void setUp() throws RecipeException {
+        // Setup initial recipes before each test
         this.recipeBook = new RecipeBook();
 
         this.blackCoffee = new Recipe();
@@ -61,26 +63,25 @@ class RecipeBookTest {
         heartAttack.setAmtChocolate("49");
 
         this.coffeeOne = new Recipe();
-        coffeeOne.setName("Latte");
-        coffeeOne.setPrice("75");
+        coffeeOne.setName("Coffee One");
+        coffeeOne.setPrice("7");
         coffeeOne.setAmtCoffee("2");
-        coffeeOne.setAmtMilk("3");
+        coffeeOne.setAmtMilk("30");
         coffeeOne.setAmtSugar("2");
-        coffeeOne.setAmtChocolate("0");
+        coffeeOne.setAmtChocolate("100");
     }
 
 
     // Tests the constructor -------------------------------------------------------------------------------------------
 
-
-    @Test   // Verifies the fields after executing the constructor of RecipeBook.
+    @Test   // Ensures the initial recipe book has space for 4 recipes after executing the constructor of RecipeBook.
     public void testRecipeBookConstructor(){
         assertEquals(4, this.recipeBook.getRecipes().length);
     }
 
     // Tests for Get Recipes Function ----------------------------------------------------------------------------------
 
-    @Test
+    @Test   // Ensures that the getRecipes function returns the correct list of recipes after adding recipes.
     void testGetRecipes() {
         this.recipeBook.addRecipe(this.blackCoffee);
         this.recipeBook.addRecipe(this.latte);
@@ -90,35 +91,34 @@ class RecipeBookTest {
         Recipe[] actualRecipeArray = this.recipeBook.getRecipes();
 
         assertArrayEquals(expectedRecipeArray, actualRecipeArray);
-
     }
 
-    //Tests for Add Recipe Function -----------------------------------------------------------------------------------
+    // Tests for Add Recipe Function -----------------------------------------------------------------------------------
 
-    @Test
+    @Test   // Tests if adding a valid recipe works
     void testAddRecipe_Valid(){
         assertTrue(this.recipeBook.addRecipe(this.blackCoffee));
     }
 
-    @Test
+    @Test   // Tests if adding a duplicate recipe fails
     void testAddRecipe_RepeatedRecipe() {
-
         this.recipeBook.addRecipe(mocha);
+
         assertFalse(this.recipeBook.addRecipe(mocha));
     }
 
-    // ONLY ONE TEST WITH ALL ASSERTIONS COULD WORK
-    @Test
+    // ONE TEST WITH ALL ASSERTIONS COULD WORK
+    @Test   // Tests that no more recipes can be added if there are already 4 recipes in the book
     void testAddRecipe_TooManyRecipes() {
-
         this.recipeBook.addRecipe(blackCoffee);
         this.recipeBook.addRecipe(latte);
         this.recipeBook.addRecipe(mocha);
         this.recipeBook.addRecipe(heartAttack);
+
         assertFalse(this.recipeBook.addRecipe(coffeeOne));
     }
 
-    @Test
+    @Test   // Tests that adding a null recipe throws a NullPointerException
     void testAddRecipe_NullRecipe(){
         assertThrows(
                 NullPointerException.class, () -> {
@@ -127,8 +127,9 @@ class RecipeBookTest {
         );
     }
 
-    @Test
+    @Test   // Tests that trying to add an uninitialized recipe throws a NullPointerException
     void testAddRecipe_Uinstantiated(){
+
         assertThrows(
                 NullPointerException.class, () -> {
                     this.recipeBook.addRecipe(null);
@@ -136,8 +137,7 @@ class RecipeBookTest {
         );
     }
 
-    // CAN I DO THIS IN UNIT TESTS????
-    @Test
+    @Test   // Tests that after deleting a recipe, space is made for a new one
     void testAddRecipe_AddRecipeAfterDeletionToMakeSpace() {
         this.recipeBook.addRecipe(blackCoffee);
         this.recipeBook.addRecipe(latte);
@@ -148,9 +148,9 @@ class RecipeBookTest {
         assertTrue(this.recipeBook.addRecipe(coffeeOne));
     }
 
-    //Tests for Delete Recipe Function -----------------------------------------------------------------------------------
+    // Tests for Delete Recipe Function -----------------------------------------------------------------------------------
 
-    @Test
+    @Test   // Tests that deleting a valid recipe works
     void testDeleteRecipe_Valid() {
         this.recipeBook.addRecipe(mocha);
 
@@ -160,52 +160,49 @@ class RecipeBookTest {
         assertEquals(expectedDeletion, actualDeletion);
     }
 
-    @Test
+    @Test   // Verifies that deleting from an empty recipe book returns null
     void testDeleteRecipe_NullRecipe() {
         String actualDeletion = this.recipeBook.deleteRecipe(0);
 
         assertNull(actualDeletion);
     }
 
-    @Test
+    @Test   // Verifies that attempting to delete a recipe at an invalid index throws an exception
     void testDeleteRecipe_IndexOutOfBounds() {
         assertThrows(
                 ArrayIndexOutOfBoundsException.class, () -> {
-                    //Try to delete a recipe out of the array range
                     this.recipeBook.deleteRecipe(4);
                 }
         );
     }
 
-    //Tests for Edit Recipe Function -----------------------------------------------------------------------------------
+    // Tests for Edit Recipe Function -----------------------------------------------------------------------------------
 
-    @Test
+    @Test   // Verifies that editing an existing recipe works
     void testEditRecipe_Valid() {
         this.recipeBook.addRecipe(this.blackCoffee);
 
         assertEquals("Black Coffee", this.recipeBook.editRecipe(0, mocha));
     }
 
-    // What if the new recipe is null??
-    @Test
+    @Test   // Verifies that editing a recipe at an invalid index returns null
     void testEditRecipe_NullIndex() {
         assertNull(this.recipeBook.editRecipe(0, mocha));
-
     }
 
-    @Test
+    @Test   // Verifies that editing a recipe at an invalid index throws an exception
     void testEditRecipe_IndexOutOfBounds() {
         assertThrows(
                 ArrayIndexOutOfBoundsException.class, () -> {
-                    //Try to delete a recipe out of the array range
                     this.recipeBook.editRecipe(4, this.blackCoffee);
                 }
         );
     }
 
-    @Test
+    @Test   // Verifies that editing a recipe with a null new recipe throws an exception
     void testEditRecipe_NullRecipe() {
         this.recipeBook.addRecipe(this.blackCoffee);
+
         assertThrows(
                 NullPointerException.class, () -> {
                     this.recipeBook.editRecipe(0, null);
@@ -213,9 +210,10 @@ class RecipeBookTest {
         );
     }
 
-    @Test
+    @Test   // Verifies that editing a recipe with an uninitialized recipe throws an exception
     void testEditRecipe_Uninstantiated() {
         this.recipeBook.addRecipe(this.blackCoffee);
+
         assertThrows(
                 NullPointerException.class, () -> {
                     this.recipeBook.editRecipe(0, this.uninitialised);
@@ -223,8 +221,8 @@ class RecipeBookTest {
         );
     }
 
-    // CAN I DO THIS??? OPINIONS??
-    @Test
+    @Test   // Verifies that after editing a recipe, the new recipe's name is correctly updated
+    // CAN I ADD THIS TEST?
     void testEditRecipe_NewRecipeCheck() {
         this.recipeBook.addRecipe(this.blackCoffee);
         this.recipeBook.editRecipe(0, mocha);
@@ -233,6 +231,6 @@ class RecipeBookTest {
         String actualName = this.recipeBook.getRecipes()[0].getName();
 
         assertEquals(expectedName, actualName);
-
     }
+
 }
