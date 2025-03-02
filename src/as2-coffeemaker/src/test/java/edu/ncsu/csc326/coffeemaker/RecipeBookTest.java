@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
     * deleteRecipe never allows for new one to be added
     * editRecipe deletes mew recipe's name
     * In Recipe, same exception message for negative integer or invalid string passed which is not helpful
+    * addRecipe does not break out of the first for-loop after first match is found (redundant iterations).
 */
 
 
@@ -107,7 +108,6 @@ class RecipeBookTest {
         assertFalse(this.recipeBook.addRecipe(mocha));
     }
 
-    // ONE TEST WITH ALL ASSERTIONS COULD WORK
     @Test   // Tests that no more recipes can be added if there are already 4 recipes in the book
     void testAddRecipe_TooManyRecipes() {
         this.recipeBook.addRecipe(blackCoffee);
@@ -128,7 +128,7 @@ class RecipeBookTest {
     }
 
     @Test   // Tests that trying to add an uninitialized recipe throws a NullPointerException
-    void testAddRecipe_Uinstantiated(){
+    void testAddRecipe_Uninstantiated(){
 
         assertThrows(
                 NullPointerException.class, () -> {
