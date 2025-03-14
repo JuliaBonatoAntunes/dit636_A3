@@ -263,6 +263,17 @@ class RecipeTest {
         assertEquals(expectedAmtChocolate, actualAmtChocolate);
     }
 
+    @Test   // Tests setting 0 amount of chocolate
+    void testSetAmtChocolate_Zero() throws RecipeException {
+        String testAmtChocolate = "0";
+        this.recipe.setAmtChocolate(testAmtChocolate);
+
+        int expectedAmtChocolate = 0;
+        int actualAmtChocolate = this.recipe.getAmtChocolate();
+
+        assertEquals(expectedAmtChocolate, actualAmtChocolate);
+    }
+
     @Test   // Tests setting an invalid amount of chocolate (non-numeric) and ensures an exception is thrown
     void testSetAmtChocolate_Invalid() {
         String testAmtChocolate = "five";
